@@ -1,0 +1,88 @@
+<div class="container">
+  <app-sidebar></app-sidebar>
+
+  <div class="content">
+    <app-header></app-header>
+
+    <div class="ENTETE">
+      <h4>Liste des formations</h4>
+      <!-- Bouton pour ouvrir le modal ou déclencher l'ajout d'une nouvelle formation -->
+      <button class="prev" (click)="resetForm()">Ajouter</button>
+    </div>
+
+    <!-- Formulaire des formations -->
+    <div class="form-container">
+      <h4>{{ selectedFormationId ? 'Modifier Formation' : 'Ajouter Formation' }}</h4>
+      <form [formGroup]="formationForm" (ngSubmit)="selectedFormationId ? updateFormation() : createFormation()">
+        <div class="form-group">
+          <label>Titre:</label>
+          <input formControlName="titre" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>Description:</label>
+          <textarea formControlName="description" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Date de Début:</label>
+          <input type="date" formControlName="dateDebut" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>Date de Fin:</label>
+          <input type="date" formControlName="dateFin" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>Organisateur:</label>
+          <input formControlName="organisateur" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">{{ selectedFormationId ? 'Mettre à jour' : 'Ajouter' }} Formation</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Table des formations -->
+    <div class="table-container mt-4">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date Début</th>
+            <th>Date Fin</th>
+            <th>Organisateur</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let formation of formations">
+            <td>{{ formation.titre }}</td>
+            <td>{{ formation.description }}</td>
+            <td>{{ formation.dateDebut | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ formation.dateFin | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ formation.organisateur }}</td>
+            <td>
+              <button class="btn-edit" (click)="selectFormation(formation)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-delete" (click)="deleteFormation(formation.id)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- Pagination -->
+      <div class="pagination">
+        <button class="prev">Previous</button>
+        <span class="page-number">1</span>
+        <button class="next">Next</button>
+      </div>
+    </div>
+  </div>
+</div>

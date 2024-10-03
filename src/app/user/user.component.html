@@ -1,0 +1,69 @@
+<div class="container">
+  <app-sidebar></app-sidebar>
+
+  <div class="content">
+    <app-header></app-header>
+    <div class="ENTETE">
+      <h4>Gestion des Utilisateurs</h4>
+      <button class="prev" (click)="onSubmit()">Ajouter</button> 
+    </div>
+
+    <div class="table-container">
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+        <input type="hidden" formControlName="id">
+        <div>
+          <label for="nom">Nom:</label>
+          <input id="nom" formControlName="nom" type="text">
+        </div>
+        <div>
+          <label for="prenom">Prénom:</label>
+          <input id="prenom" formControlName="prenom" type="text">
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input id="email" formControlName="email" type="email">
+        </div>
+        <div>
+          <label for="password">Mot de passe:</label>
+          <input id="password" formControlName="password" type="password">
+        </div>
+        <div> <select formControlName="role">
+          <option *ngFor="let role of roles" [value]="role.id">{{ role.nom }}</option>
+        </select></div>
+        <button type="submit">Enregistrer</button>
+      </form>
+
+      <h3>Liste des Utilisateurs</h3>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nom & Prénom</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.nom }} {{ user.prenom }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <button class="btn-edit" (click)="editUser(user)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-delete" (click)="deleteUser(user.id)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="pagination">
+        <button class="prev">Previous</button>
+        <span class="page-number">1</span>
+        <button class="next">Next</button>
+      </div>
+    </div>
+  </div>
+</div>

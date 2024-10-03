@@ -1,0 +1,43 @@
+ /* Sidebar styles */
+ /* Basic styles for the body and container */
+$sidebar-selected-color: #FE5C73; // Sidebar selected item color
+ .sidebar {
+    background-color: #fff;
+    width: 250px;
+    height: 538px;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav li {
+        margin-bottom: 15px;
+        }
+        
+        .nav a {
+        text-decoration: none;
+        color: #555;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        }
+        
+        .nav a:hover {
+        background-color: #f0f0f0;
+        }
+        
+        .nav a.active {
+        background-color: #e9ecef;
+        font-weight: bold;
+        color: #FE5C73;
+        }
+      
+        
+        .nav i {
+        margin-right: 10px;
+        
+        }
+    
+        .nav-link.active i {
+            color: #FE5C73;; /* Couleur de l'icône du lien actif */
+          }

@@ -1,0 +1,105 @@
+<div class="container">
+ <app-sidebar></app-sidebar>
+  <main class="content">
+    <app-header></app-header>
+      <div class="dashboard-grid">
+          <div class="card">
+              <div class="card-header">
+                  <h2>Utilisatrices</h2>
+              </div>
+              <div class="card-body">
+                  <div class="stat">
+                      <i class="fas fa-money-bill-wave"></i>
+                      <span>12750</span>
+                  </div>
+              </div>
+          </div>
+          <div class="card">
+              <div class="card-header">
+                  <h2>Incidents</h2>
+              </div>
+              <div class="card-body">
+                  <div class="stat">
+                      <i class="fas fa-money-bill-wave"></i>
+                      <span>12750</span>
+                  </div>
+              </div>
+          </div>
+          <div class="card recent-formations">
+              <div class="card-header">
+                  <h2>Formations récents</h2>
+              </div>
+              <ul class="list">
+                  <li>
+                      <div class="icon">
+                          <i class="fas fa-laptop-code"></i>
+                      </div>
+                      <div class="details">
+                          <h3>Informatique</h3>
+                          <p>28 January 2021</p>
+                      </div>
+                      <div class="amount">
+                          <p>2000 fcfa</p>
+                      </div>
+                  </li>
+                  <li>
+                      <div class="icon">
+                          <i class="fas fa-gem"></i>
+                      </div>
+                      <div class="details">
+                          <h3>Perlage</h3>
+                          <p>25 January 2021</p>
+                      </div>
+                      <div class="amount">
+                          <p>10 000 fcfa</p>
+                      </div>
+                  </li>
+                  <li>
+                      <div class="icon">
+                          <i class="fas fa-soap"></i>
+                      </div>
+                      <div class="details">
+                          <h3>Savonerie</h3>
+                          <p>21 January 2021</p>
+                      </div>
+                      <div class="amount">
+                          <p>4000 fcfa</p>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+         
+   
+      
+    
+    
+    </div>
+<div class="char" >
+    <div class="cardchart">
+        <div class="card-header">
+          <h2>Rapport formations</h2>
+        </div>
+        <div class="chart-container" >
+          <p-chart type="bar" [data]="formationsData" [options]="formationsOptions"></p-chart>
+        </div>
+      </div>
+    
+
+    <!-- Rapport Incidents (Pie Chart) -->
+    
+      <div class="cardchart">
+        <div class="card-header">
+          <h2>Rapport Incidents</h2>
+        </div>
+        <div class="chart-container" >
+          <p-chart type="pie" [data]="incidentsData" [options]="incidentsOptions"></p-chart>
+        </div>
+      
+  </div>
+
+</div>
+  </main>
+</div>
+
+
+

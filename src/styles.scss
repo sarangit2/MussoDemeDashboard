@@ -1,1 +1,177 @@
-/* You can add global styles to this file, and also import other style files */
+// Variables for theme colors
+$primary-color: #ff7a28; // Orange
+$secondary-color: #ffffff; // White
+$sidebar-bg: #f8f9fa; // Sidebar background
+$card-bg: #ffffff; // Card background
+$text-color: #333; // General text color
+$dashboard-spacing: 20px; // General spacing
+
+// Base styles
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f5f8;
+  color: $text-color;
+}
+
+// Sidebar
+.sidebar {
+  width: 250px;
+  background-color: $sidebar-bg;
+  padding: $dashboard-spacing;
+  
+  .logo {
+    
+    margin-bottom: $dashboard-spacing;
+    height: 120px;
+    width: 120px;
+    margin-left: 20%;
+  
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    
+    li {
+      margin-bottom: $dashboard-spacing;
+      
+      a {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: $text-color;
+        font-weight: bold;
+        
+        &:hover {
+          background-color: lighten($primary-color, 30%);
+        }
+        
+        .icon {
+          margin-right: 10px;
+          font-size: 18px;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+// Header
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: $secondary-color;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    
+    input {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-right: 10px;
+    }
+    
+    .icon-search {
+      font-size: 18px;
+      color: #999;
+    }
+  }
+  
+  .profile {
+    display: flex;
+    align-items: center;
+   
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-left: 10px;
+    }
+  }
+}
+
+// Dashboard
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  padding: $dashboard-spacing;
+  
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $dashboard-spacing;
+    
+    .card {
+      background-color: $card-bg;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: $dashboard-spacing;
+      border-radius: 8px;
+      flex: 1;
+      margin-right: $dashboard-spacing;
+      
+      &:last-child {
+        margin-right: 0;
+      }
+      
+      .card-title {
+        font-size: 14px;
+        color: $primary-color;
+        margin-bottom: 10px;
+      }
+      
+      .card-value {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+  }
+  
+  .reports {
+    display: flex;
+    justify-content: space-between;
+    
+    .report-card {
+      background-color: $card-bg;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: $dashboard-spacing;
+      border-radius: 8px;
+      flex: 1;
+      margin-right: $dashboard-spacing;
+      
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    
+   
+  }
+}
+
+// Recent Formations List
+.recent-formations {
+  .formation-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    
+    .formation-title {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    .formation-date, .formation-cost {
+      font-size: 12px;
+      color: $primary-color;
+    }
+  }
+}
+
+
+
