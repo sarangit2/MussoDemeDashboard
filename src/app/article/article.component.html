@@ -1,4 +1,4 @@
-
+<!-- src/app/components/article/article.component.html -->
 <div class="container">
   <app-sidebar></app-sidebar>
 
@@ -6,12 +6,49 @@
     <app-header></app-header>
 
     <div class="ENTETE">
-      <h4>Liste des articles</h4>
-      <!-- Bouton Ajouter avec modal trigger -->
-      <button class="prev" data-bs-toggle="modal" data-bs-target="#articleModal" (click)="resetForm()">Ajouter</button>
+      <h4>Liste des Articles</h4>
+      <!-- Bouton pour ouvrir le modal ou déclencher l'ajout d'un nouvel article -->
+      <button class="btn-primary" (click)="Ouvrir()">Ajouter</button>
     </div>
 
-    <div class="table-container">
+    <!-- Formulaire des articles dans un modal -->
+    <div class="Formulaire" *ngIf="Isvisible">
+      <div class="form-overlay" (click)="Ferme()"></div>
+      <div class="form-content">
+        <div class="form-header">
+          <h3>{{ selectedArticleId ? 'Modifier Article' : 'Ajouter Article' }}</h3>
+          <span class="close-btn" (click)="Ferme()">&times;</span>
+        </div>
+        <form [formGroup]="articleForm" (ngSubmit)="selectedArticleId ? updateArticle() : createArticle()">
+          <div class="form-group">
+            <label>Titre:</label>
+            <input formControlName="titre" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label>Description:</label>
+            <textarea formControlName="description" class="form-control"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Type:</label>
+            <input formControlName="type" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label>Date de Publication:</label>
+            <input type="date" formControlName="datePublication" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn-primary full-width">{{ selectedArticleId ? 'Mettre à jour' : 'Ajouter' }} Article</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Table des articles -->
+    <div class="table-container mt-4">
       <table class="table">
         <thead>
           <tr>
@@ -27,21 +64,16 @@
             <td>{{ article.titre }}</td>
             <td>{{ article.description }}</td>
             <td>{{ article.type }}</td>
-            <td>{{ article.datePublication | date: 'dd MMM, yyyy' }}</td>
+            <td>{{ article.datePublication | date: 'dd/MM/yyyy' }}</td>
             <td>
-              <!-- Bouton Modifier avec modal trigger -->
-              <button class="btn-edit" data-bs-toggle="modal" data-bs-target="#articleModal" (click)="onSelect(article)">
-                <i class="fas fa-edit"></i>
-              </button>
-              <!-- Bouton Supprimer -->
-              <button class="btn-delete" (click)="onDelete(article.id!)">
-                <i class="fas fa-trash"></i>
-              </button>
+              <button class="btn-edit" (click)="selectArticle(article)"> <i class="fas fa-edit"></i> </button>
+              <button class="btn-delete" (click)="deleteArticle(article.id)"> <i class="fas fa-trash"></i> </button>
             </td>
           </tr>
         </tbody>
       </table>
 
+      <!-- Pagination -->
       <div class="pagination">
         <button class="prev">Previous</button>
         <span class="page-number">1</span>
@@ -50,41 +82,3 @@
     </div>
   </div>
 </div>
-
-<!-- Modal Bootstrap pour ajouter/modifier un article -->
-<div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="articleModalLabel">{{ isEditMode ? 'Modifier l\'Article' : 'Ajouter un Article' }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="onSubmit()">
-          <div class="mb-3">
-            <label for="titre" class="form-label">Titre</label>
-            <input [(ngModel)]="selectedArticle.titre" name="titre" class="form-control" placeholder="Titre" required />
-          </div>
-          <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <input [(ngModel)]="selectedArticle.description" name="description" class="form-control" placeholder="Description" required />
-          </div>
-          <div class="mb-3">
-            <label for="type" class="form-label">Type</label>
-            <input [(ngModel)]="selectedArticle.type" name="type" class="form-control" placeholder="Type" required />
-          </div>
-          <div class="mb-3">
-            <label for="datePublication" class="form-label">Date de Publication</label>
-            <input [(ngModel)]="selectedArticle.datePublication" name="datePublication" class="form-control" type="date" required />
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">Annuler</button>
-            <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Mettre à Jour' : 'Ajouter' }}</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-

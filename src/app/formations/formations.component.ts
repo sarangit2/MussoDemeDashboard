@@ -11,8 +11,8 @@ import { FormationService } from '../service/formation.service';
 export class FormationsComponent implements OnInit {
   formations: Formation[] = [];
   formationForm: FormGroup;
-  selectedFormationId: number | undefined; 
-  Isvisible: boolean = false; // Propriété pour contrôler la visibilité du modal
+  selectedFormationId: number | undefined;
+  Isvisible: boolean = false; // Contrôle la visibilité du modal
 
   constructor(private formationService: FormationService, private fb: FormBuilder) { 
     this.formationForm = this.fb.group({
@@ -40,7 +40,7 @@ export class FormationsComponent implements OnInit {
       this.formationService.createFormation(newFormation).subscribe((formation) => {
         this.formations.push(formation);
         this.formationForm.reset();
-        this.Ferme(); // Fermer le modal après l'ajout
+        this.Ferme(); // Ferme le modal après l'ajout
       });
     }
   }
@@ -55,7 +55,7 @@ export class FormationsComponent implements OnInit {
         }
         this.formationForm.reset();
         this.selectedFormationId = undefined;
-        this.Ferme(); // Fermer le modal après la mise à jour
+        this.Ferme(); // Ferme le modal après la mise à jour
       });
     }
   }
@@ -63,7 +63,7 @@ export class FormationsComponent implements OnInit {
   selectFormation(formation: Formation): void {
     this.selectedFormationId = formation.id;
     this.formationForm.patchValue(formation);
-    this.Ouvrir(); // Ouvrir le modal avec les données de la formation sélectionnée
+    this.Ouvrir(); // Ouvre le modal pour modifier la formation
   }
 
   deleteFormation(id: number | undefined): void {
@@ -74,17 +74,17 @@ export class FormationsComponent implements OnInit {
     }
   }
 
-  resetForm(): void {
-    this.selectedFormationId = undefined;
-    this.formationForm.reset();
-    this.Ouvrir(); // Ouvrir le modal pour ajouter une nouvelle formation
-  }
-
   Ouvrir(): void {
-    this.Isvisible = true; // Ouvrir le modal
+    this.Isvisible = true; // Affiche le modal
   }
 
   Ferme(): void {
-    this.Isvisible = false; // Fermer le modal
+    this.Isvisible = false; // Masque le modal
+    this.resetForm(); // Réinitialise le formulaire
+  }
+
+  resetForm(): void {
+    this.selectedFormationId = undefined;
+    this.formationForm.reset();
   }
 }

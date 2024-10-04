@@ -1,62 +1,91 @@
+// src/app/components/article/article.component.ts
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Article } from '../incident.model';
 import { ArticleService } from '../service/article.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // Importation du module pour gérer le modal Bootstrap
+
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss'],
+  styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
   articles: Article[] = [];
-  selectedArticle: Article = {} as Article;
-  isEditMode = false;
+  articleForm: FormGroup;
+  selectedArticleId: number | undefined;
+  Isvisible: boolean = false; // Contrôle la visibilité du modal
 
-  constructor(private articleService: ArticleService, private modalService: NgbModal) {} // Injecter le modalService
-
-  ngOnInit(): void {
-    this.loadArticles();
+  constructor(private articleService: ArticleService, private fb: FormBuilder) { 
+    this.articleForm = this.fb.group({
+      titre: ['', Validators.required],
+      description: ['', Validators.required],
+      type: ['', Validators.required],
+      datePublication: ['', Validators.required],
+    });
   }
 
-  loadArticles(): void {
-    this.articleService.getAllArticles().subscribe((data) => {
+  ngOnInit(): void {
+    this.getArticles();
+  }
+
+  getArticles(): void {
+    this.articleService.getAllArticles().subscribe(data => {
       this.articles = data;
     });
   }
 
-  onSelect(article: Article): void {
-    this.selectedArticle = { ...article };
-    this.isEditMode = true;
-  }
-
-  onSubmit(): void {
-    if (this.isEditMode) {
-      this.articleService.updateArticle(this.selectedArticle.id!, this.selectedArticle).subscribe(() => {
-        this.loadArticles();
-        this.resetForm();
-      });
-    } else {
-      this.articleService.createArticle(this.selectedArticle).subscribe(() => {
-        this.loadArticles();
-        this.resetForm();
+  createArticle(): void {
+    if (this.articleForm.valid) {
+      const newArticle: Article = this.articleForm.value;
+      this.articleService.createArticle(newArticle).subscribe((article) => {
+        this.articles.push(article);
+        this.articleForm.reset();
+        this.Ferme(); // Ferme le modal après l'ajout
       });
     }
-    // Fermer le modal après la soumission
-    const modal = document.getElementById('articleModal') as HTMLElement;
-    modal?.classList.remove('show');
-    modal?.setAttribute('aria-hidden', 'true');
-    modal?.removeAttribute('aria-modal');
   }
 
-  onDelete(id: number): void {
-    this.articleService.deleteArticle(id).subscribe(() => {
-      this.loadArticles();
-    });
+  updateArticle(): void {
+    if (this.selectedArticleId !== undefined && this.articleForm.valid) {
+      const updatedArticle: Article = { ...this.articleForm.value, id: this.selectedArticleId };
+      this.articleService.updateArticle(this.selectedArticleId, updatedArticle).subscribe(() => {
+        const index = this.articles.findIndex(a => a.id === this.selectedArticleId);
+        if (index !== -1) {
+          this.articles[index] = updatedArticle;
+        }
+        this.articleForm.reset();
+        this.selectedArticleId = undefined;
+        this.Ferme(); // Ferme le modal après la mise à jour
+      });
+    }
+  }
+
+  selectArticle(article: Article): void {
+    this.selectedArticleId = article.id;
+    this.articleForm.patchValue(article);
+    this.Ouvrir(); // Ouvre le modal pour modifier l'article
+  }
+
+  deleteArticle(id: number | undefined): void {
+    if (id !== undefined) {
+      this.articleService.deleteArticle(id).subscribe(() => {
+        this.articles = this.articles.filter(a => a.id !== id);
+      });
+    }
+  }
+
+  Ouvrir(): void {
+    this.Isvisible = true; // Affiche le modal
+  }
+
+  Ferme(): void {
+    this.Isvisible = false; // Masque le modal
+    this.resetForm(); // Réinitialise le formulaire
   }
 
   resetForm(): void {
-    this.selectedArticle = {} as Article;
-    this.isEditMode = false;
+    this.selectedArticleId = undefined;
+    this.articleForm.reset();
   }
 }

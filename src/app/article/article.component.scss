@@ -77,7 +77,187 @@
     border-radius: 5px;
   }
 
-  /* Général styling pour le modal */
+  .container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .content {
+    flex-grow: 1;
+    
+  }
 
+  .ENTETE{
+    margin-left: 20px;
+  }
+  
+  .table-container {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    margin-left: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f1f1f1;
+  }
+  
+  .table tr {
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .table tr:last-child {
+    border-bottom: none;
+  }
+  
+  .btn-edit, .btn-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-edit {
+    color: blue;
+  }
+  
+  .btn-delete {
+    color: red;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .page-number {
+    margin: 0 10px;
+  }
+  
+  .prev, .next {
+    background-color: #FE5C73;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .btn-primary {
+    background-color: #FE5C73; /* Couleur de fond bleu */
+    color: white; /* Couleur du texte blanc */
+    border: none; /* Pas de bordure */
+    padding: 10px 20px; /* Espacement interne */
+    border-radius: 5px; /* Bords arrondis */
+    cursor: pointer; /* Curseur en forme de main au survol */
+    transition: background-color 0.3s ease; /* Transition douce pour le changement de couleur */
+    width: 20%;
+    height: 10%;
+    margin-left: 137vh;
+  }
+  
+  .btn-primary:hover {
+    background-color: #cf475c; /* Changement de couleur au survol */
+  }
+  
+
+  
+  /* Général styling pour le modal */
+  .Formulaire {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(82, 80, 80, 0.068); /* Fond semi-transparent pour l'arrière-plan */
+    z-index: 1000;
+  }
+  
+  .form-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .form-content {
+    position: relative;
+    background-color: white; /* Couleur de fond blanche pour le formulaire */
+    padding: 40px;
+    border-radius: 10px; /* Bords arrondis pour un look moderne */
+    width: 90%;
+    max-width: 500px; /* Taille maximale du formulaire */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombre pour l'effet de profondeur */
+    z-index: 2000;
+
+  }
+  
+  .form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 25vh;
+    color: #FE5C73;
+  }
+  
+  .close-btn {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .form-header .close-btn:hover {
+    color: #FE5C73; /* Changement de couleur au survol pour indiquer qu'il est cliquable */
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    justify-content: center;
+  }
+  
+  .full-width {
+    width: 50%;
+    height: 10%;
+    margin-left: 20vh;
+    margin-top: 5vh;
+    background-color: #5DB075; /* Couleur de fond bleu */
+    color: white; /* Couleur du texte blanc */
+    border: none; /* Pas de bordure */
+    padding: 10px 20px; /* Espacement interne */
+    border-radius: 5px; /* Bords arrondis */
+    cursor: pointer; /* Curseur en forme de main au survol */
+    transition: background-color 0.3s ease; /* Transition douce pour le changement de couleur */
+    
+  }
+  .full-width:hover {
+    background-color: #4a815a; /* Changement de couleur au survol */
+  }
+  
+
+  
+  
 
   

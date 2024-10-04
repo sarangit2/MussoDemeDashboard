@@ -12,7 +12,7 @@ import { HeaderComponent } from './header/header.component';
 
 import { CommonModule } from '@angular/common';
 import { FormationsComponent } from './formations/formations.component';
-import { ArticleComponent } from './article/article.component';
+
 
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
@@ -20,6 +20,7 @@ import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
 import { OffreEmploiComponent } from './offre-emploi/offre-emploi.component';
+import { ArticleComponent } from './article/article.component';
 
 @NgModule({
   declarations: [

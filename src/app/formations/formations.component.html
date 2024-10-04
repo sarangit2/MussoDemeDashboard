@@ -6,19 +6,19 @@
 
     <div class="ENTETE">
       <h4>Liste des formations</h4>
-      <button class="btn-primary" (click)="Ouvrir()">Ajouter</button> <!-- Bouton pour ouvrir le modal -->
+      <!-- Bouton pour ouvrir le modal ou déclencher l'ajout d'une nouvelle formation -->
+      <button class="btn-primary" (click)="Ouvrir()">Ajouter</button>
     </div>
 
-    <!-- Formulaire des formations -->
+    <!-- Formulaire des formations dans un modal -->
     <div class="Formulaire" *ngIf="Isvisible">
-      <div class="form-overlay"></div>
+      <div class="form-overlay" (click)="Ferme()"></div>
       <div class="form-content">
         <div class="form-header">
           <h3>{{ selectedFormationId ? 'Modifier Formation' : 'Ajouter Formation' }}</h3>
           <span class="close-btn" (click)="Ferme()">&times;</span>
         </div>
         <form [formGroup]="formationForm" (ngSubmit)="selectedFormationId ? updateFormation() : createFormation()">
-          <input type="hidden" formControlName="id">
           <div class="form-group">
             <label>Titre:</label>
             <input formControlName="titre" class="form-control" />
@@ -72,17 +72,13 @@
             <td>{{ formation.dateFin | date: 'dd/MM/yyyy' }}</td>
             <td>{{ formation.organisateur }}</td>
             <td>
-              <button class="btn-edit" (click)="selectFormation(formation)">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="btn-delete" (click)="deleteFormation(formation.id)">
-                <i class="fas fa-trash"></i>
-              </button>
+              <button class="btn-edit" (click)="selectFormation(formation)"> <i class="fas fa-edit"></i> </button>
+              <button class="btn-delete" (click)="deleteFormation(formation.id)"> <i class="fas fa-trash"></i> </button>
             </td>
           </tr>
         </tbody>
       </table>
-      
+
       <!-- Pagination -->
       <div class="pagination">
         <button class="prev">Previous</button>

@@ -9,7 +9,7 @@ import { Article } from '../incident.model';
   providedIn: 'root',
 })
 export class ArticleService {
-  private apiUrl = 'http://localhost:8080/articles';
+  private apiUrl = 'http://localhost:8080/api/articles';
 
   constructor(private http: HttpClient) {}
 
