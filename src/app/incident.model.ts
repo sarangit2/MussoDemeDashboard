@@ -3,7 +3,7 @@ export interface User {
   nom: string;
   prenom: string;
   email: string;
-  telephone: string;
+  phone: string;
   password: string;
   role?: Role; // Propriété pour le rôle
   // Assurez-vous de gérer le mot de passe correctement

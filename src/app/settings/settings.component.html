@@ -1,12 +1,86 @@
-<div *ngIf="userDetails">
-    <h2>Détails de l'utilisateur</h2>
-    <p><strong>Nom:</strong> {{ userDetails.nom }}</p>
-    <p><strong>Email:</strong> {{ userDetails.email }}</p>
-    
-    <!-- Ajoutez d'autres champs selon votre modèle utilisateur -->
+
+
+  <!-- src/app/components/article/article.component.html -->
+<div class="container">
+  <app-sidebar></app-sidebar>
+
+  <div class="content">
+    <app-header></app-header>
+
+    <div class="ENTETE" >
+     
+
+      <div class="profile-edit-container">
+        <div class="tabs">
+          <button class="tab active">Edit Profile</button>
+          <button class="tab">Sécurité</button>
+        </div>
+      
+        <div class="profile-section">
+          <div class="profile-image-container">
+            <img 
+              src="https://via.placeholder.com/100" 
+              alt="Profile Picture" 
+              class="profile-image"
+            >
+          </div>
+        </div>
+      
+        <form class="profile-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nom">Nom</label>
+              <input 
+                type="text" 
+                id="nom" 
+                [value]="userDetails?.nom" 
+                
+              >
+            </div>
+            <div class="form-group">
+              <label for="prenom">Prénom</label>
+              <input 
+                type="text" 
+                id="prenom" 
+                [value]="userDetails?.prenom" 
+                
+              >
+            </div>
+          </div>
+      
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                [value]="userDetails?.email" 
+                
+              >
+            </div>
+            <div class="form-group">
+              <label for="phone">Téléphone</label>
+              <input 
+                type="text" 
+                id="phone" 
+                [value]="userDetails?.phone" 
+                
+              >
+            </div>
+          </div>
+      
+          <!-- Ajoutez d'autres champs selon votre modèle utilisateur -->
+          
+          <div class="form-actions">
+            <button type="button" class="save-button" (click)="editUser()">Modifier</button>
+          </div>
+        </form>
+      </div>
+      
+
+
+    </div>
   </div>
-  
-  <div *ngIf="errorMessage">
-    <p class="error">{{ errorMessage }}</p>
-  </div>
+</div>
+
   

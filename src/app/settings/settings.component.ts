@@ -11,6 +11,7 @@ import { User } from '../incident.model';
 export class SettingsComponent implements OnInit {
   userDetails: User | undefined;
   errorMessage: string | undefined;
+  isEditing: boolean = false; // Pour gérer l'état d'édition
 
   constructor(private userService: UserService) {}
 
@@ -28,5 +29,27 @@ export class SettingsComponent implements OnInit {
         this.errorMessage = 'Erreur lors du chargement des détails de l\'utilisateur.';
       }
     );
+  }
+
+  editUser() {
+    this.isEditing = !this.isEditing; // Toggle l'état d'édition
+
+    if (!this.isEditing) {
+      // Si l'utilisateur termine l'édition
+      if (this.userDetails && this.userDetails.id) { // Assurez-vous que userDetails et son id sont définis
+        this.userService.updateUser(this.userDetails.id, this.userDetails).subscribe(
+          (response) => {
+            console.log('Détails de l\'utilisateur mis à jour avec succès', response);
+            // Vous pouvez aussi recharger les détails de l'utilisateur pour obtenir les dernières valeurs
+            this.loadUserDetails();
+          },
+          (error) => {
+            console.error('Erreur lors de la mise à jour des détails de l\'utilisateur', error);
+          }
+        );
+      } else {
+        console.error('Aucun ID utilisateur disponible pour la mise à jour');
+      }
+    }
   }
 }
