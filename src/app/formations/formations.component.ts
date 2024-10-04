@@ -6,21 +6,21 @@ import { FormationService } from '../service/formation.service';
 @Component({
   selector: 'app-formations',
   templateUrl: './formations.component.html',
-  styleUrls: ['./formations.component.scss'] // Correction ici : 'styleUrl' devrait être 'styleUrls'
+  styleUrls: ['./formations.component.scss']
 })
 export class FormationsComponent implements OnInit {
   formations: Formation[] = [];
-  formationForm: FormGroup; // Formulaire pour créer ou mettre à jour une formation
-  selectedFormationId: number | undefined; // ID de la formation sélectionnée pour la mise à jour
+  formationForm: FormGroup;
+  selectedFormationId: number | undefined; 
+  Isvisible: boolean = false; // Propriété pour contrôler la visibilité du modal
 
   constructor(private formationService: FormationService, private fb: FormBuilder) { 
-    this.formationForm = this.fb.group({ // Initialisation du formulaire
+    this.formationForm = this.fb.group({
       titre: ['', Validators.required],
       description: ['', Validators.required],
-      dateDebut: ['', Validators.required], // Champ date de début
-      dateFin: ['', Validators.required], // Champ date de fin
-      organisateur: ['', Validators.required], // Champ organisateur
-      // Ajoutez d'autres champs selon votre modèle Formation
+      dateDebut: ['', Validators.required],
+      dateFin: ['', Validators.required],
+      organisateur: ['', Validators.required],
     });
   }
 
@@ -28,59 +28,63 @@ export class FormationsComponent implements OnInit {
     this.getFormations();
   }
 
-  // Récupérer toutes les formations
   getFormations(): void {
     this.formationService.getAllFormations().subscribe(data => {
       this.formations = data;
     });
   }
 
-  // Créer une nouvelle formation
   createFormation(): void {
     if (this.formationForm.valid) {
-      const newFormation: Formation = this.formationForm.value; // Récupérer les valeurs du formulaire
+      const newFormation: Formation = this.formationForm.value;
       this.formationService.createFormation(newFormation).subscribe((formation) => {
-        this.formations.push(formation); // Ajouter la nouvelle formation à la liste
-        this.formationForm.reset(); // Réinitialiser le formulaire
+        this.formations.push(formation);
+        this.formationForm.reset();
+        this.Ferme(); // Fermer le modal après l'ajout
       });
     }
   }
 
-  // Mettre à jour une formation existante
   updateFormation(): void {
     if (this.selectedFormationId !== undefined && this.formationForm.valid) {
       const updatedFormation: Formation = { ...this.formationForm.value, id: this.selectedFormationId };
       this.formationService.updateFormation(this.selectedFormationId, updatedFormation).subscribe(() => {
         const index = this.formations.findIndex(f => f.id === this.selectedFormationId);
         if (index !== -1) {
-          this.formations[index] = updatedFormation; // Mettre à jour la formation dans la liste
+          this.formations[index] = updatedFormation;
         }
-        this.formationForm.reset(); // Réinitialiser le formulaire
-        this.selectedFormationId = undefined; // Réinitialiser l'ID de sélection
+        this.formationForm.reset();
+        this.selectedFormationId = undefined;
+        this.Ferme(); // Fermer le modal après la mise à jour
       });
     }
   }
 
-  // Sélectionner une formation pour la mise à jour
   selectFormation(formation: Formation): void {
-    this.selectedFormationId = formation.id; // Enregistrer l'ID de la formation sélectionnée
-    this.formationForm.patchValue(formation); // Remplir le formulaire avec les données de la formation
+    this.selectedFormationId = formation.id;
+    this.formationForm.patchValue(formation);
+    this.Ouvrir(); // Ouvrir le modal avec les données de la formation sélectionnée
   }
 
-  // Supprimer une formation
   deleteFormation(id: number | undefined): void {
     if (id !== undefined) {
       this.formationService.deleteFormation(id).subscribe(() => {
         this.formations = this.formations.filter(f => f.id !== id);
       });
-    } else {
-      console.error("Erreur : L'ID de la formation est undefined, impossible de supprimer.");
     }
   }
 
   resetForm(): void {
-    this.selectedFormationId = undefined; // Réinitialiser l'ID de sélection
-    this.formationForm.reset(); // Réinitialiser les champs du formulaire
+    this.selectedFormationId = undefined;
+    this.formationForm.reset();
+    this.Ouvrir(); // Ouvrir le modal pour ajouter une nouvelle formation
   }
-  
+
+  Ouvrir(): void {
+    this.Isvisible = true; // Ouvrir le modal
+  }
+
+  Ferme(): void {
+    this.Isvisible = false; // Fermer le modal
+  }
 }

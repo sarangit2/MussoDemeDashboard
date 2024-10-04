@@ -8,20 +8,19 @@ import { Role } from '../incident.model';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
   userForm: FormGroup;
   users: any[] = [];
   roles: Role[] = []; // Liste des rôles
-  selectedUser: any;
-
-  searchText: string = ''; // Texte de recherche
+  selectedUser: any = null; // Variable pour stocker l'utilisateur à modifier
+  Isvisible = false;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private roleService: RoleService, // Injection du service de rôle
+    private roleService: RoleService,
     private router: Router
   ) {
     this.userForm = this.fb.group({
@@ -30,8 +29,7 @@ export class UserComponent implements OnInit {
       prenom: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      role: [null, Validators.required] // Ajouter un champ pour le rôle (le roleId)
-      
+      role: [null, Validators.required]
     });
   }
 
@@ -40,13 +38,19 @@ export class UserComponent implements OnInit {
     this.loadRoles(); // Charger les rôles au démarrage
   }
 
-  
+  Ouvrir() {
+    this.Isvisible = true;
+    this.selectedUser = null; // Réinitialiser l'utilisateur sélectionné pour ajouter
+    this.userForm.reset(); // Réinitialiser le formulaire pour l'ajout
+  }
+
+  Ferme() {
+    this.Isvisible = false;
+  }
 
   loadUsers() {
-    console.log('Chargement des utilisateurs...');
     this.userService.getUsers().subscribe(
       users => {
-        console.log('Utilisateurs récupérés:', users);
         this.users = users;
       },
       error => {
@@ -56,10 +60,8 @@ export class UserComponent implements OnInit {
   }
 
   loadRoles() {
-    console.log('Chargement des rôles...');
     this.roleService.lister().subscribe(
       roles => {
-        console.log('Rôles récupérés:', roles);
         this.roles = roles;
       },
       error => {
@@ -70,35 +72,29 @@ export class UserComponent implements OnInit {
 
   onSubmit() {
     if (this.userForm.invalid) {
-      console.warn('Formulaire invalide:', this.userForm.errors);
       return;
     }
 
     const userData = this.userForm.value;
-    const roleId = userData.role; // Extraire le roleId depuis le champ role
-    console.log('Données de l\'utilisateur à soumettre:', userData);
+    const roleId = userData.role;
 
     if (userData.id) {
-      // Mise à jour d'un utilisateur existant
-      console.log('Mise à jour de l\'utilisateur avec ID:', userData.id);
+      // Mise à jour de l'utilisateur
       this.userService.updateUser(userData.id, userData).subscribe(
         () => {
-          console.log('Utilisateur mis à jour avec succès');
           this.loadUsers();
-          this.userForm.reset();
+          this.Ferme(); // Fermer la modal après l'opération
         },
         error => {
           console.error('Erreur lors de la mise à jour de l\'utilisateur:', error);
         }
       );
     } else {
-      // Ajouter un nouvel utilisateur en passant le roleId
-      console.log('Ajout d\'un nouvel utilisateur avec roleId:', roleId);
+      // Ajout d'un nouvel utilisateur
       this.userService.addUser(userData, roleId).subscribe(
         () => {
-          console.log('Nouvel utilisateur ajouté avec succès');
           this.loadUsers();
-          this.userForm.reset();
+          this.Ferme(); // Fermer la modal après l'opération
         },
         error => {
           console.error('Erreur lors de l\'ajout de l\'utilisateur:', error);
@@ -109,14 +105,13 @@ export class UserComponent implements OnInit {
 
   editUser(user: any) {
     this.selectedUser = user;
-    this.userForm.patchValue(user);
+    this.userForm.patchValue(user); // Pré-remplir le formulaire avec les données de l'utilisateur
+    this.Isvisible = true; // Ouvrir la modal
   }
 
   deleteUser(id: number) {
-    console.log('Suppression de l\'utilisateur avec ID:', id);
     this.userService.deleteUser(id).subscribe(
       () => {
-        console.log('Utilisateur supprimé avec succès');
         this.loadUsers();
       },
       error => {

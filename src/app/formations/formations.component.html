@@ -6,43 +6,49 @@
 
     <div class="ENTETE">
       <h4>Liste des formations</h4>
-      <!-- Bouton pour ouvrir le modal ou déclencher l'ajout d'une nouvelle formation -->
-      <button class="prev" (click)="resetForm()">Ajouter</button>
+      <button class="btn-primary" (click)="Ouvrir()">Ajouter</button> <!-- Bouton pour ouvrir le modal -->
     </div>
 
     <!-- Formulaire des formations -->
-    <div class="form-container">
-      <h4>{{ selectedFormationId ? 'Modifier Formation' : 'Ajouter Formation' }}</h4>
-      <form [formGroup]="formationForm" (ngSubmit)="selectedFormationId ? updateFormation() : createFormation()">
-        <div class="form-group">
-          <label>Titre:</label>
-          <input formControlName="titre" class="form-control" />
+    <div class="Formulaire" *ngIf="Isvisible">
+      <div class="form-overlay"></div>
+      <div class="form-content">
+        <div class="form-header">
+          <h3>{{ selectedFormationId ? 'Modifier Formation' : 'Ajouter Formation' }}</h3>
+          <span class="close-btn" (click)="Ferme()">&times;</span>
         </div>
+        <form [formGroup]="formationForm" (ngSubmit)="selectedFormationId ? updateFormation() : createFormation()">
+          <input type="hidden" formControlName="id">
+          <div class="form-group">
+            <label>Titre:</label>
+            <input formControlName="titre" class="form-control" />
+          </div>
 
-        <div class="form-group">
-          <label>Description:</label>
-          <textarea formControlName="description" class="form-control"></textarea>
-        </div>
+          <div class="form-group">
+            <label>Description:</label>
+            <textarea formControlName="description" class="form-control"></textarea>
+          </div>
 
-        <div class="form-group">
-          <label>Date de Début:</label>
-          <input type="date" formControlName="dateDebut" class="form-control" />
-        </div>
+          <div class="form-group">
+            <label>Date de Début:</label>
+            <input type="date" formControlName="dateDebut" class="form-control" />
+          </div>
 
-        <div class="form-group">
-          <label>Date de Fin:</label>
-          <input type="date" formControlName="dateFin" class="form-control" />
-        </div>
+          <div class="form-group">
+            <label>Date de Fin:</label>
+            <input type="date" formControlName="dateFin" class="form-control" />
+          </div>
 
-        <div class="form-group">
-          <label>Organisateur:</label>
-          <input formControlName="organisateur" class="form-control" />
-        </div>
+          <div class="form-group">
+            <label>Organisateur:</label>
+            <input formControlName="organisateur" class="form-control" />
+          </div>
 
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">{{ selectedFormationId ? 'Mettre à jour' : 'Ajouter' }} Formation</button>
-        </div>
-      </form>
+          <div class="form-group">
+            <button type="submit" class="btn-primary full-width">{{ selectedFormationId ? 'Mettre à jour' : 'Ajouter' }} Formation</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- Table des formations -->

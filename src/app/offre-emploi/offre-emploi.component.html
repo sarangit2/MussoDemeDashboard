@@ -3,41 +3,13 @@
 
   <div class="content">
     <app-header></app-header>
-    
+
     <div class="ENTETE">
       <h4>Gestion des Offres d'Emploi</h4>
-      <button class="prev" (click)="resetForm()">Ajouter</button>
+      <button class="btn-primary" (click)="openModal()">Ajouter</button>
     </div>
 
     <div class="table-container">
-      <form (ngSubmit)="editMode ? updateOffre() : createOffre()">
-        <div>
-          <label for="titre">Titre</label>
-          <input type="text" [(ngModel)]="newOffre.titre" name="titre" required />
-        </div>
-        <div>
-          <label for="description">Description</label>
-          <input type="text" [(ngModel)]="newOffre.description" name="description" required />
-        </div>
-        <div>
-          <label for="entreprise">Entreprise</label>
-          <input type="text" [(ngModel)]="newOffre.entreprise" name="entreprise" required />
-        </div>
-        <div>
-          <label for="localisation">Localisation</label>
-          <input type="text" [(ngModel)]="newOffre.localisation" name="localisation" required />
-        </div>
-        <div>
-          <label for="datePublication">Date de Publication</label>
-          <input type="date" [(ngModel)]="newOffre.datePublication" name="datePublication" required />
-        </div>
-        <div>
-          <label for="dateExpiration">Date d'Expiration</label>
-          <input type="date" [(ngModel)]="newOffre.dateExpiration" name="dateExpiration" required />
-        </div>
-        <button type="submit">{{ editMode ? 'Modifier' : 'Ajouter' }}</button>
-      </form>
-
       <table class="table">
         <thead>
           <tr>
@@ -70,6 +42,44 @@
         <button class="prev">Previous</button>
         <span class="page-number">1</span>
         <button class="next">Next</button>
+      </div>
+    </div>
+
+    <div class="Formulaire" *ngIf="isModalVisible">
+      <div class="form-overlay" (click)="closeModal()"></div>
+      <div class="form-content">
+        <div class="form-header">
+          <h3>{{ editMode ? 'Modifier une Offre' : 'Ajouter une Offre' }}</h3>
+          <span class="close-btn" (click)="closeModal()">&times;</span>
+        </div>
+        <form [formGroup]="offreForm" (ngSubmit)="editMode ? updateOffre() : createOffre()">
+          <input type="hidden" formControlName="id">
+          <div class="form-group">
+            <label for="titre">Titre:</label>
+            <input id="titre" formControlName="titre" type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <input id="description" formControlName="description" type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="entreprise">Entreprise:</label>
+            <input id="entreprise" formControlName="entreprise" type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="localisation">Localisation:</label>
+            <input id="localisation" formControlName="localisation" type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="datePublication">Date de Publication:</label>
+            <input id="datePublication" formControlName="datePublication" type="date" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="dateExpiration">Date d'Expiration:</label>
+            <input id="dateExpiration" formControlName="dateExpiration" type="date" class="form-control" required>
+          </div>
+          <button type="submit" class="btn-primary full-width">{{ editMode ? 'Modifier' : 'Ajouter' }}</button>
+        </form>
       </div>
     </div>
   </div>
