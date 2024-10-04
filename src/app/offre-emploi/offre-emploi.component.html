@@ -6,6 +6,13 @@
 
     <div class="ENTETE">
       <h4>Gestion des Offres d'Emploi</h4>
+
+        <!-- champs pour rechercher dans la table  -->
+        <div class="search">
+          <input type="text" placeholder="Recherche" (input)="onSearchTextChange($event)">
+          <i class="fas fa-search"></i>
+        </div>
+        
       <button class="btn-primary" (click)="openModal()">Ajouter</button>
     </div>
 
@@ -23,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let offre of offres">
+          <tr *ngFor="let offre of offres | filter: searchText">
             <td>{{ offre.titre }}</td>
             <td>{{ offre.description }}</td>
             <td>{{ offre.entreprise }}</td>

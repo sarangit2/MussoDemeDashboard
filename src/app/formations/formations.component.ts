@@ -13,7 +13,9 @@ export class FormationsComponent implements OnInit {
   formationForm: FormGroup;
   selectedFormationId: number | undefined;
   Isvisible: boolean = false; // Contrôle la visibilité du modal
+  searchText: string = ''; // Variable pour le texte de recherche
 
+  
   constructor(private formationService: FormationService, private fb: FormBuilder) { 
     this.formationForm = this.fb.group({
       titre: ['', Validators.required],
@@ -26,6 +28,11 @@ export class FormationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFormations();
+  }
+
+  onSearchTextChange(event: Event) {
+    const input = event.target as HTMLInputElement; // Spécifiez que l'élément cible est un HTMLInputElement
+    this.searchText = input.value; // Mettez à jour searchText avec la valeur d'entrée
   }
 
   getFormations(): void {

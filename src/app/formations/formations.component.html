@@ -6,6 +6,13 @@
 
     <div class="ENTETE">
       <h4>Liste des formations</h4>
+
+        <!-- champs pour rechercher dans la table  -->
+        <div class="search">
+          <input type="text" placeholder="Recherche" (input)="onSearchTextChange($event)">
+          <i class="fas fa-search"></i>
+        </div>
+        
       <!-- Bouton pour ouvrir le modal ou déclencher l'ajout d'une nouvelle formation -->
       <button class="btn-primary" (click)="Ouvrir()">Ajouter</button>
     </div>
@@ -65,7 +72,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let formation of formations">
+          <tr *ngFor="let formation of formations | filter: searchText">
             <td>{{ formation.titre }}</td>
             <td>{{ formation.description }}</td>
             <td>{{ formation.dateDebut | date: 'dd/MM/yyyy' }}</td>

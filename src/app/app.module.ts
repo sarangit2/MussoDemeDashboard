@@ -21,13 +21,15 @@ import { provideHttpClient } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
 import { OffreEmploiComponent } from './offre-emploi/offre-emploi.component';
 import { ArticleComponent } from './article/article.component';
+import { FilterPipe } from './filter.pipe';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     SidebarComponent,
-
+    FilterPipe,
     HeaderComponent,
     FormationsComponent,
     ArticleComponent,
@@ -35,6 +37,7 @@ import { ArticleComponent } from './article/article.component';
     SettingsComponent,
     LoginComponent,
     OffreEmploiComponent,
+    
   
    
  

@@ -16,6 +16,8 @@ export class UserComponent implements OnInit {
   roles: Role[] = []; // Liste des rôles
   selectedUser: any = null; // Variable pour stocker l'utilisateur à modifier
   Isvisible = false;
+  searchText: string = ''; // Variable pour le texte de recherche
+ 
 
   constructor(
     private fb: FormBuilder,
@@ -42,6 +44,11 @@ export class UserComponent implements OnInit {
     this.Isvisible = true;
     this.selectedUser = null; // Réinitialiser l'utilisateur sélectionné pour ajouter
     this.userForm.reset(); // Réinitialiser le formulaire pour l'ajout
+  }
+
+  onSearchTextChange(event: Event) {
+    const input = event.target as HTMLInputElement; // Spécifiez que l'élément cible est un HTMLInputElement
+    this.searchText = input.value; // Mettez à jour searchText avec la valeur d'entrée
   }
 
   Ferme() {

@@ -7,6 +7,16 @@
 
     <div class="ENTETE">
       <h4>Liste des Articles</h4>
+
+      <!-- champs pour rechercher dans la table  -->
+      <div class="search">
+        <input type="text" placeholder="Recherche" (input)="onSearchTextChange($event)">
+        <i class="fas fa-search"></i>
+      </div>
+      
+
+
+
       <!-- Bouton pour ouvrir le modal ou déclencher l'ajout d'un nouvel article -->
       <button class="btn-primary" (click)="Ouvrir()">Ajouter</button>
     </div>
@@ -60,7 +70,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let article of articles">
+          <tr *ngFor="let article of articles | filter: searchText">
             <td>{{ article.titre }}</td>
             <td>{{ article.description }}</td>
             <td>{{ article.type }}</td>

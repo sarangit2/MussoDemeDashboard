@@ -14,6 +14,8 @@ export class OffreEmploiComponent implements OnInit {
   editMode: boolean = false;
   isModalVisible: boolean = false;
   offreForm: FormGroup;
+  searchText: string = ''; // Variable pour le texte de recherche
+
 
   constructor(private offreEmploiService: OffreEmploiService, private fb: FormBuilder) {
     this.offreForm = this.fb.group({
@@ -35,6 +37,11 @@ export class OffreEmploiComponent implements OnInit {
     this.offreEmploiService.getAllOffres().subscribe((data: OffreEmploi[]) => {
       this.offres = data;
     });
+  }
+
+  onSearchTextChange(event: Event) {
+    const input = event.target as HTMLInputElement; // Spécifiez que l'élément cible est un HTMLInputElement
+    this.searchText = input.value; // Mettez à jour searchText avec la valeur d'entrée
   }
 
   openModal(): void {

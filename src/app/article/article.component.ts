@@ -16,6 +16,8 @@ export class ArticleComponent implements OnInit {
   selectedArticleId: number | undefined;
   Isvisible: boolean = false; // Contrôle la visibilité du modal
 
+  searchText: string = ''; // Variable pour le texte de recherche
+
   constructor(private articleService: ArticleService, private fb: FormBuilder) { 
     this.articleForm = this.fb.group({
       titre: ['', Validators.required],
@@ -34,6 +36,12 @@ export class ArticleComponent implements OnInit {
       this.articles = data;
     });
   }
+
+  onSearchTextChange(event: Event) {
+    const input = event.target as HTMLInputElement; // Spécifiez que l'élément cible est un HTMLInputElement
+    this.searchText = input.value; // Mettez à jour searchText avec la valeur d'entrée
+  }
+  
 
   createArticle(): void {
     if (this.articleForm.valid) {
