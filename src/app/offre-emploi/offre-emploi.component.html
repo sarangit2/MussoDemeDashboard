@@ -12,7 +12,7 @@
           <input type="text" placeholder="Recherche" (input)="onSearchTextChange($event)">
           <i class="fas fa-search"></i>
         </div>
-        
+
       <button class="btn-primary" (click)="openModal()">Ajouter</button>
     </div>
 
@@ -66,8 +66,8 @@
             <input id="titre" formControlName="titre" type="text" class="form-control" required>
           </div>
           <div class="form-group">
-            <label for="description">Description:</label>
-            <input id="description" formControlName="description" type="text" class="form-control" required>
+            <label>Description:</label>
+            <textarea formControlName="description" id="description" class="form-control"></textarea>
           </div>
           <div class="form-group">
             <label for="entreprise">Entreprise:</label>
@@ -79,11 +79,11 @@
           </div>
           <div class="form-group">
             <label for="datePublication">Date de Publication:</label>
-            <input id="datePublication" formControlName="datePublication" type="date" class="form-control" required>
+            <input id="datePublication" [min]="today" formControlName="datePublication" type="date" class="form-control" (change)="onDatePublicationChange()" required>
           </div>
           <div class="form-group">
             <label for="dateExpiration">Date d'Expiration:</label>
-            <input id="dateExpiration" formControlName="dateExpiration" type="date" class="form-control" required>
+            <input id="dateExpiration" formControlName="dateExpiration" type="date" class="form-control" [min]="minExpirationDate" required>
           </div>
           <button type="submit" class="btn-primary full-width">{{ editMode ? 'Modifier' : 'Ajouter' }}</button>
         </form>

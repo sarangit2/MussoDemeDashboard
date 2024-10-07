@@ -32,6 +32,19 @@ export class FormationService {
       .pipe(catchError(this.handleError)); // Gestion des erreurs
   }
 
+   // Récupérer les trois dernières formations à venir
+   getUpcomingFormations(): Observable<Formation[]> {
+    return this.http.get<Formation[]>(`${this.apiUrl}/recent`, { headers: this.getHeaders() })
+      .pipe(catchError(this.handleError)); // Gestion des erreurs
+  }
+
+
+    // Récupérer les formations groupées par mois
+    getFormationsByMonth(): Observable<any> {
+      return this.http.get<any>(`${this.apiUrl}/by-month`, { headers: this.getHeaders() })
+        .pipe(catchError(this.handleError));
+    }
+
   // Récupérer une formation par ID
   getFormationById(id: number): Observable<Formation> {
     return this.http.get<Formation>(`${this.apiUrl}/liste/${id}`, { headers: this.getHeaders() })

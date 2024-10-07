@@ -14,8 +14,9 @@ export class FormationsComponent implements OnInit {
   selectedFormationId: number | undefined;
   Isvisible: boolean = false; // Contrôle la visibilité du modal
   searchText: string = ''; // Variable pour le texte de recherche
+  today: string = ''; // Stocker la date du jour
+  minDateFin: string = ''; // Stocker la date minimum pour la date de fin
 
-  
   constructor(private formationService: FormationService, private fb: FormBuilder) { 
     this.formationForm = this.fb.group({
       titre: ['', Validators.required],
@@ -28,6 +29,7 @@ export class FormationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFormations();
+    this.today = new Date().toISOString().split('T')[0]; // Définit la date du jour (au format yyyy-MM-dd)
   }
 
   onSearchTextChange(event: Event) {
@@ -94,4 +96,12 @@ export class FormationsComponent implements OnInit {
     this.selectedFormationId = undefined;
     this.formationForm.reset();
   }
+
+  // Méthode pour mettre à jour la date minimale de fin lorsque la date de début change
+ // Méthode pour mettre à jour la date minimale de fin lorsque la date de début change
+ onDateDebutChange(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  this.minDateFin = input.value; // Met à jour minDateFin en fonction de dateDebut
+  this.formationForm.get('dateFin')?.setValue(''); // Réinitialise la date de fin si la date de début est modifiée
+}
 }

@@ -1,105 +1,94 @@
 <div class="container">
- <app-sidebar></app-sidebar>
-  <main class="content">
-    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+    <main class="content">
+      <app-header></app-header>
+      <h3>Aw bismilah sur la plateforme <span class="highlight">MussoDèmè</span></h3>
       <div class="dashboard-grid">
-          <div class="card">
-              <div class="card-header">
-                  <h2>Utilisatrices</h2>
-              </div>
-              <div class="card-body">
-                  <div class="stat">
-                      <i class="fas fa-money-bill-wave"></i>
-                      <span>12750</span>
-                  </div>
-              </div>
+        <!-- Card 1: Utilisatrices -->
+       
+        <div class="card">
+          <div class="card-header">
+            <h2>Conseils juridiques</h2>
           </div>
-          <div class="card">
-              <div class="card-header">
-                  <h2>Incidents</h2>
-              </div>
-              <div class="card-body">
-                  <div class="stat">
-                      <i class="fas fa-money-bill-wave"></i>
-                      <span>12750</span>
-                  </div>
-              </div>
+          <div class="card-body">
+            <div class="stat">
+             
+                <span>{{ getTotalArticles() }}</span> <!-- Affiche le nombre total d'articles -->
+            </div>
           </div>
-          <div class="card recent-formations">
-              <div class="card-header">
-                  <h2>Formations récents</h2>
-              </div>
-              <ul class="list">
-                  <li>
-                      <div class="icon">
-                          <i class="fas fa-laptop-code"></i>
-                      </div>
-                      <div class="details">
-                          <h3>Informatique</h3>
-                          <p>28 January 2021</p>
-                      </div>
-                      <div class="amount">
-                          <p>2000 fcfa</p>
-                      </div>
-                  </li>
-                  <li>
-                      <div class="icon">
-                          <i class="fas fa-gem"></i>
-                      </div>
-                      <div class="details">
-                          <h3>Perlage</h3>
-                          <p>25 January 2021</p>
-                      </div>
-                      <div class="amount">
-                          <p>10 000 fcfa</p>
-                      </div>
-                  </li>
-                  <li>
-                      <div class="icon">
-                          <i class="fas fa-soap"></i>
-                      </div>
-                      <div class="details">
-                          <h3>Savonerie</h3>
-                          <p>21 January 2021</p>
-                      </div>
-                      <div class="amount">
-                          <p>4000 fcfa</p>
-                      </div>
-                  </li>
-              </ul>
-          </div>
-         
-   
-      
-    
-    
-    </div>
-<div class="char" >
-    <div class="cardchart">
-        <div class="card-header">
-          <h2>Rapport formations</h2>
         </div>
-        <div class="chart-container" >
-          <p-chart type="bar" [data]="formationsData" [options]="formationsOptions"></p-chart>
+
+         <!-- Card 1: Utilisatrices -->
+         <div class="card">
+            <div class="card-header">
+              <h2>Utilisatrices</h2>
+            </div>
+            <div class="card-body">
+              <div class="stat">
+                
+                <span>{{ getTotalUsers() }}</span> <!-- Affiche le nombre total d'utilisateurs -->
+              </div>
+            </div>
+          </div>
+  
+        <!-- Card 2: Offre d'emploi -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Offres d'emploi</h2>
+          </div>
+          <div class="card-body">
+            <div class="stat">
+             
+                <span>{{ getTotalOffres() }}</span>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Card 3: Recent Formations -->
+        <div class="cardform recent-formations">
+          <div class="card-headerr">
+            <h2>Formations récentes</h2>
+          </div>
+          <ul class="list">
+            <li *ngFor="let formation of recentFormations">
+              <div class="icon">
+                <i class="fas fa-laptop-code"></i> <!-- Remplacer l'icône selon le type de formation -->
+              </div>
+              <div class="details">
+                <h3>{{ formation.titre }}</h3>
+                <p>{{ formation.dateDebut | date: 'dd MMMM yyyy' }} -- {{ formation.dateFin | date: 'dd MMMM yyyy' }}</p> <!-- Formatage de la date -->
+              </div>
+              <div class="amount">
+                <p></p> <!-- Ajouter le champ 'prix' s'il existe -->
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
-    
-
-    <!-- Rapport Incidents (Pie Chart) -->
-    
-      <div class="cardchart">
-        <div class="card-header">
-          <h2>Rapport Incidents</h2>
+  
+      <!-- Charts section -->
+      <div class="char">
+        <!-- Formations Report -->
+        <div class="cardchart">
+          <div class="card-graph">
+            <h2>Rapport Formations</h2>
+          </div>
+          <div class="chart-container">
+            <p-chart type="bar" [data]="formationsData" [options]="formationsOptions"></p-chart>
+         
         </div>
-        <div class="chart-container" >
-          <p-chart type="pie" [data]="incidentsData" [options]="incidentsOptions"></p-chart>
         </div>
-      
+  
+        <!-- Incidents Report (Pie Chart) -->
+        <div class="cardchart">
+          <div class="card-graph">
+            <h2>Rapport Utilisatrices</h2>
+          </div>
+          <div class="chart-container">
+            <p-chart type="pie" [data]="incidentsData" [options]="incidentsOptions"></p-chart>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
-
-</div>
-  </main>
-</div>
-
-
-
+  

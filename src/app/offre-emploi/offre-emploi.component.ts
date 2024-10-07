@@ -15,6 +15,8 @@ export class OffreEmploiComponent implements OnInit {
   isModalVisible: boolean = false;
   offreForm: FormGroup;
   searchText: string = ''; // Variable pour le texte de recherche
+  minExpirationDate: string = ''; // Minimum date for expiration
+  today: string = ''; // Stocker la date du jour
 
 
   constructor(private offreEmploiService: OffreEmploiService, private fb: FormBuilder) {
@@ -31,6 +33,7 @@ export class OffreEmploiComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOffres();
+    this.today = new Date().toISOString().split('T')[0]; // Définit la date du jour (au format yyyy-MM-dd)
   }
 
   loadOffres(): void {
@@ -87,5 +90,14 @@ export class OffreEmploiComponent implements OnInit {
   resetForm(): void {
     this.offreForm.reset();
     this.editMode = false; // Réinitialiser le mode d'édition
+  }
+
+  // Function to handle the change in datePublication and set minExpirationDate
+  onDatePublicationChange(): void {
+    const publicationDate = this.offreForm.get('datePublication')?.value;
+    if (publicationDate) {
+      // Set the minimum expiration date as the day after the publication date
+      this.minExpirationDate = publicationDate;
+    }
   }
 }
