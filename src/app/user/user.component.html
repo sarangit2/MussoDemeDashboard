@@ -67,7 +67,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users | filter: searchText">
+          <tr *ngFor="let user of paginatedUsers | filter: searchText">
             <td>{{ user.nom }} {{ user.prenom }}</td>
             <td>{{ user.email }}</td>
             <td>
@@ -82,11 +82,12 @@
         </tbody>
       </table>
       
-      <div class="pagination">
-        <button class="prev">Prev</button>
-        <span class="page-number">1</span>
-        <button class="next">Next</button>
-      </div>
+     <!-- Pagination -->
+     <div class="pagination">
+      <button class="prev" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <span class="page-number">{{ currentPage }} / {{ totalPages }}</span>
+      <button class="next" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
     </div>
   </div>
 

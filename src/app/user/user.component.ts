@@ -19,6 +19,11 @@ export class UserComponent implements OnInit {
   searchText: string = ''; // Variable pour le texte de recherche
  
 
+     // Pagination properties
+     currentPage: number = 1;
+     userPerPage: number = 2; // Nombre d'articles par page
+   
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -47,10 +52,34 @@ export class UserComponent implements OnInit {
     this.userForm.reset(); // Réinitialiser le formulaire pour l'ajout
   }
 
+    // Calculer les articles paginés
+    get paginatedUsers() {
+      const startIndex = (this.currentPage - 1) * this.userPerPage;
+      return this.users.slice(startIndex, startIndex + this.userPerPage);
+    }
+
   onSearchTextChange(event: Event) {
     const input = event.target as HTMLInputElement; // Spécifiez que l'élément cible est un HTMLInputElement
     this.searchText = input.value; // Mettez à jour searchText avec la valeur d'entrée
   }
+
+    // Méthodes de pagination
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    }
+  
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    }
+  
+    // Calculer le nombre total de pages
+    get totalPages() {
+      return Math.ceil(this.users.length / this.userPerPage);
+    }
 
   Ferme() {
     this.Isvisible = false;

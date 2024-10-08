@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
         datasets: [
           {
             label: 'Nombre de formations',
-            backgroundColor: '#00c0ef',
+            backgroundColor: '#FE5C73',
             data: counts
           }
         ]
@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
 
     this.incidentsOptions = {
       cutout: '30%',
-      radius: "60%",
+      radius: "20%",
       responsive: true,
       maintainAspectRatio: false,
       plugins: {

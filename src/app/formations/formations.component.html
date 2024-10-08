@@ -73,7 +73,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let formation of formations | filter: searchText">
+          <tr *ngFor="let formation of paginatedFormation | filter: searchText">
             <td>{{ formation.titre }}</td>
             <td>{{ formation.description }}</td>
             <td>{{ formation.dateDebut | date: 'dd/MM/yyyy' }}</td>
@@ -88,10 +88,11 @@
       </table>
 
       <!-- Pagination -->
-      <div class="pagination">
-        <button class="prev">Previous</button>
-        <span class="page-number">1</span>
-        <button class="next">Next</button>
+       <!-- Pagination -->
+       <div class="pagination">
+        <button class="prev" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+        <span class="page-number">{{ currentPage }} / {{ totalPages }}</span>
+        <button class="next" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
       </div>
     </div>
   </div>

@@ -17,6 +17,11 @@ export class FormationsComponent implements OnInit {
   today: string = ''; // Stocker la date du jour
   minDateFin: string = ''; // Stocker la date minimum pour la date de fin
 
+
+     // Pagination properties
+     currentPage: number = 1;
+     formationPerPage: number = 2; // Nombre d'articles par page
+   
   constructor(private formationService: FormationService, private fb: FormBuilder) { 
     this.formationForm = this.fb.group({
       titre: ['', Validators.required],
@@ -36,6 +41,32 @@ export class FormationsComponent implements OnInit {
     const input = event.target as HTMLInputElement; // Spécifiez que l'élément cible est un HTMLInputElement
     this.searchText = input.value; // Mettez à jour searchText avec la valeur d'entrée
   }
+
+    // Calculer les articles paginés
+    get paginatedFormation() {
+      const startIndex = (this.currentPage - 1) * this.formationPerPage;
+      return this.formations.slice(startIndex, startIndex + this.formationPerPage);
+    }
+
+    // Méthodes de pagination
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Calculer le nombre total de pages
+  get totalPages() {
+    return Math.ceil(this.formations.length / this.formationPerPage);
+  }
+
+  
 
   getFormations(): void {
     this.formationService.getAllFormations().subscribe(data => {

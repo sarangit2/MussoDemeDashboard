@@ -19,6 +19,11 @@ export class OffreEmploiComponent implements OnInit {
   today: string = ''; // Stocker la date du jour
 
 
+     // Pagination properties
+     currentPage: number = 1;
+     offresPerPage: number = 2; // Nombre d'articles par page
+   
+
   constructor(private offreEmploiService: OffreEmploiService, private fb: FormBuilder) {
     this.offreForm = this.fb.group({
       id: [''],
@@ -40,6 +45,30 @@ export class OffreEmploiComponent implements OnInit {
     this.offreEmploiService.getAllOffres().subscribe((data: OffreEmploi[]) => {
       this.offres = data;
     });
+  }
+
+    // Calculer les articles paginés
+    get paginatedOffres() {
+      const startIndex = (this.currentPage - 1) * this.offresPerPage;
+      return this.offres.slice(startIndex, startIndex + this.offresPerPage);
+    }
+
+      // Méthodes de pagination
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Calculer le nombre total de pages
+  get totalPages() {
+    return Math.ceil(this.offres.length / this.offresPerPage);
   }
 
   onSearchTextChange(event: Event) {

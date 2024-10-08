@@ -18,6 +18,11 @@ export class ArticleComponent implements OnInit {
 
   searchText: string = ''; // Variable pour le texte de recherche
 
+
+    // Pagination properties
+    currentPage: number = 1;
+    articlesPerPage: number = 2; // Nombre d'articles par page
+  
   constructor(private articleService: ArticleService, private fb: FormBuilder) { 
     this.articleForm = this.fb.group({
       titre: ['', Validators.required],
@@ -29,6 +34,30 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getArticles();
+  }
+
+  // Calculer les articles paginés
+  get paginatedArticles() {
+    const startIndex = (this.currentPage - 1) * this.articlesPerPage;
+    return this.articles.slice(startIndex, startIndex + this.articlesPerPage);
+  }
+
+  // Méthodes de pagination
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Calculer le nombre total de pages
+  get totalPages() {
+    return Math.ceil(this.articles.length / this.articlesPerPage);
   }
 
   getArticles(): void {

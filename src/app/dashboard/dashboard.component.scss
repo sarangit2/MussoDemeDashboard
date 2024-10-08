@@ -60,7 +60,7 @@ body {
     box-shadow: 0 30px 5px rgba(0, 0, 0, 0.1);
     padding: 10px;
     width: 35vw;
-    height: 230px;
+    height: 185px;
     // margin-left: 20px;
 }
 
@@ -131,6 +131,7 @@ body {
 
 h3{
     margin-left: 17px;
+    
 }
 
 
@@ -157,6 +158,7 @@ h3{
     justify-content: center;
     align-items: center;
     margin-right: 15px;
+    margin-top: 15px;
 }
 
 .recent-formations .icon i {
@@ -182,31 +184,11 @@ h3{
 /* Chart styles */
 
 
-.chart-container canvas 
-{
-    width: 100%;
-    height: 100%; /* Ajustez la hauteur en fonction de la taille souhaitée */
-    //width: 100%; /* Prend toute la largeur disponible, ajustez si nécessaire */
-  }
 
-.legend {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
 
-.legend .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 5px;
-}
 
-/* Pie chart specific styles */
-#incidentsChart {
-    width: 100% !important;
-    height: 100% !important;
-}
+
+
 
 /* Responsive design for mobile devices */
 @media (max-width: 768px) {
@@ -232,6 +214,7 @@ h3{
     .cardchart {
         width: 100%;
         margin-left: 0;
+        height: 100px;
     }
 
     .card {

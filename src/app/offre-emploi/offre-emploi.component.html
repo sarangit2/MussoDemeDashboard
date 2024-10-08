@@ -30,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let offre of offres | filter: searchText">
+          <tr *ngFor="let offre of paginatedOffres | filter: searchText">
             <td>{{ offre.titre }}</td>
             <td>{{ offre.description }}</td>
             <td>{{ offre.entreprise }}</td>
@@ -45,10 +45,11 @@
         </tbody>
       </table>
 
+      <!-- Pagination -->
       <div class="pagination">
-        <button class="prev">Previous</button>
-        <span class="page-number">1</span>
-        <button class="next">Next</button>
+        <button class="prev" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+        <span class="page-number">{{ currentPage }} / {{ totalPages }}</span>
+        <button class="next" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
       </div>
     </div>
 
