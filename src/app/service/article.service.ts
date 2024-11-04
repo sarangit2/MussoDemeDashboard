@@ -1,9 +1,8 @@
 // src/app/services/article.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Article } from '../incident.model';
-
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,7 @@ export class ArticleService {
   constructor(private http: HttpClient) {}
 
   private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('jwt'); // Assume JWT token is stored in localStorage
+    const token = localStorage.getItem('jwt');
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -32,11 +31,35 @@ export class ArticleService {
       headers: this.getHeaders(),
     });
   }
+  
+  createArticle(article: Article, file: File): Observable<string> {
+    const formData = new FormData();
+    formData.append('article', JSON.stringify(article));
+    formData.append('file', file);
+  
+    // Enlevez le Content-Type ici pour éviter tout conflit avec FormData
+    const headers = this.getHeaders().delete('Content-Type');
+  
+    return this.http.post<string>(`${this.apiUrl}/ajout`, formData, {
+      headers, // Utilisez cet en-tête sans Content-Type pour FormData
+    }).pipe(
+      tap(response => console.log('Réponse de createArticle :', response)),
+      catchError(error => {
+        console.error('Erreur survenue lors de la création de l\'article :', error);
+        return throwError(error);
+      })
+    );
+  }
+  
 
-  createArticle(article: Article): Observable<Article> {
-    return this.http.post<Article>(`${this.apiUrl}/ajout`, article, {
-      headers: this.getHeaders(),
-    });
+
+
+
+  uploadAudio(id: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    const headers = this.getHeaders().delete('Content-Type'); // Remove JSON header for multipart data
+    return this.http.post(`${this.apiUrl}/ajout/audio/${id}`, formData, { headers });
   }
 
   updateArticle(id: number, article: Article): Observable<Article> {

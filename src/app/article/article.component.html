@@ -42,12 +42,19 @@
 
           <div class="form-group">
             <label>Type:</label>
-            <input formControlName="type" class="form-control" />
+            <select formControlName="type" class="form-control">
+              <option value="">Sélectionnez un type</option>
+              <option value="Droit">Droit</option>
+              <option value="Article">Article</option>
+            </select>
           </div>
 
+          
+
           <div class="form-group">
-            <label>Date de Publication:</label>
-            <input type="date" formControlName="datePublication" class="form-control" />
+            <label>URL Audio:</label>
+            <input type="file" (change)="onAudioFileChange($event)" accept="audio/*" required />
+            
           </div>
 
           <div class="form-group">

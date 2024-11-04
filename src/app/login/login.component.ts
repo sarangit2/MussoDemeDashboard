@@ -55,7 +55,5 @@ export class LoginComponent {
     return localStorage.getItem('jwt'); // Corrigez le nom de la clé
   }
 
-  logout(): void {
-    localStorage.removeItem('jwt'); // Corrigez le nom de la clé
-  }
+  
 }

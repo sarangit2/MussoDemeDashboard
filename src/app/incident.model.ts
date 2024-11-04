@@ -22,15 +22,25 @@ export interface Article {
   datePublication: string; // format "YYYY-MM-DD"
 }
 
-export class Formation {
+
+
+// formation.model.ts
+export interface Formation {
   id?: number;
-  titre!: string;
-  description!: string;
-  dateDebut!: string; // format 'yyyy-MM-dd'
-  dateFin!: string;   // format 'yyyy-MM-dd'
-  organisateur!: string;
+  titre: string;
+  description: string;
+  dateDebut: string;
+  dateFin: string;
+  organisateur: string;
+  dateAjout?: string; // date ajoutée automatiquement
+  categorie: string; // Enum en tant que string
+  utilisateur?: any; // Remplacez par l'interface Utilisateur si elle est définie
+  videoPath?: string;
+  imageUrl?: string;
+  pdfPath?: string;
   utilisateurId?: number; // Relation avec l'utilisateur
 }
+
 
 export class OffreEmploi {
   id!: number;

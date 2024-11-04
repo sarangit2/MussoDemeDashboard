@@ -52,6 +52,20 @@
             <input formControlName="organisateur" class="form-control" />
           </div>
 
+          <label for="categorie">Catégorie</label>
+  <select id="categorie" formControlName="categorie">
+    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+  </select>
+
+  <label for="videoPath">Vidéo</label>
+<input id="videoPath" type="file" (change)="onVideoSelected($event)" accept="video/*">
+
+<label for="imageUrl">Image</label>
+<input id="imageUrl" type="file" (change)="onImageSelected($event)" accept="image/*">
+
+<label for="pdfPath">Document PDF</label>
+<input id="pdfPath" type="file" (change)="onPdfSelected($event)" accept="application/pdf">
+
           <div class="form-group">
             <button type="submit" class="btn-primary full-width">{{ selectedFormationId ? 'Mettre à jour' : 'Ajouter' }} Formation</button>
           </div>

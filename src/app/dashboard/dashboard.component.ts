@@ -21,6 +21,12 @@ export class DashboardComponent implements OnInit {
   incidentsData: any;
   formationsOptions: any;
   incidentsOptions: any;
+  menuOuvert: boolean = false;
+
+toggleMenu() {
+  this.menuOuvert = !this.menuOuvert;
+}
+
 
   constructor(
     private articleService: ArticleService,

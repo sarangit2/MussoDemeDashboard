@@ -16,7 +16,7 @@ export class FormationsComponent implements OnInit {
   searchText: string = ''; // Variable pour le texte de recherche
   today: string = ''; // Stocker la date du jour
   minDateFin: string = ''; // Stocker la date minimum pour la date de fin
-
+  categories: string[] = []; // Initialisez la variable pour stocker les catégories
 
      // Pagination properties
      currentPage: number = 1;
@@ -29,13 +29,44 @@ export class FormationsComponent implements OnInit {
       dateDebut: ['', Validators.required],
       dateFin: ['', Validators.required],
       organisateur: ['', Validators.required],
+      categorie: ['', Validators.required], // Ajoutez un champ pour la catégorie
+      videoPath: [''], // Optionnel
+      imageUrl: [''],  // Optionnel
+      pdfPath: [''],   // Optionnel
     });
   }
 
   ngOnInit(): void {
     this.getFormations();
+    this.loadCategories(); // Charger les catégories ici
     this.today = new Date().toISOString().split('T')[0]; // Définit la date du jour (au format yyyy-MM-dd)
   }
+
+  onVideoSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.formationForm.patchValue({ videoPath: file });
+    }
+  }
+  
+  onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.formationForm.patchValue({ imageUrl: file });
+    }
+  }
+  
+  onPdfSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.formationForm.patchValue({ pdfPath: file });
+    }
+  }
+  
+  
 
   onSearchTextChange(event: Event) {
     const input = event.target as HTMLInputElement; // Spécifiez que l'élément cible est un HTMLInputElement
@@ -74,16 +105,36 @@ export class FormationsComponent implements OnInit {
     });
   }
 
+  loadCategories(): void {
+    this.formationService.getCategories().subscribe({
+      next: (data: string[]) => {
+        this.categories = data;
+      },
+      error: (error) => {
+        console.error("Erreur lors de la récupération des catégories :", error);
+        // Vous pouvez afficher un message d'erreur ou définir une liste de catégories par défaut
+      }
+    });
+  }
+  
+
   createFormation(): void {
     if (this.formationForm.valid) {
-      const newFormation: Formation = this.formationForm.value;
-      this.formationService.createFormation(newFormation).subscribe((formation) => {
-        this.formations.push(formation);
-        this.formationForm.reset();
-        this.Ferme(); // Ferme le modal après l'ajout
+      this.formationService.createFormation(this.formationForm).subscribe({
+        next: (response) => {
+          console.log('Formation créée avec succès', response);
+          this.getFormations(); // Recharger la liste des formations après la création
+          this.formationForm.reset(); // Réinitialiser le formulaire
+        },
+        error: (error) => {
+          console.error('Erreur lors de la création de la formation :', error);
+        }
       });
+    } else {
+      console.log('Le formulaire est invalide');
     }
   }
+
 
   updateFormation(): void {
     if (this.selectedFormationId !== undefined && this.formationForm.valid) {
