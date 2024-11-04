@@ -2,69 +2,66 @@
     <app-sidebar></app-sidebar>
     <main class="content">
       <app-header></app-header>
-      <h3>Aw bismilah sur la plateforme <span class="highlight">MussoDèmè</span></h3>
-      <div class="dashboard-grid">
-        <!-- Card 1: Utilisatrices -->
-       
-        <div class="card">
-          <div class="card-header">
+      <h3 class="welcome-title">Aw bismilah sur la plateforme <span class="highlight">MussoDèmè</span></h3>
+<div class="dashboard-grid">
+    <!-- Card 1: Conseils juridiques -->
+    <div class="card">
+        <div class="card-header">
             <h2>Conseils juridiques</h2>
-          </div>
-          <div class="card-body">
+        </div>
+        <div class="card-body">
             <div class="stat">
-             
                 <span>{{ getTotalArticles() }}</span> <!-- Affiche le nombre total d'articles -->
             </div>
-          </div>
         </div>
+    </div>
 
-         <!-- Card 1: Utilisatrices -->
-         <div class="card">
-            <div class="card-header">
-              <h2>Utilisatrices</h2>
-            </div>
-            <div class="card-body">
-              <div class="stat">
-                
-                <span>{{ getTotalUsers() }}</span> <!-- Affiche le nombre total d'utilisateurs -->
-              </div>
-            </div>
-          </div>
-  
-        <!-- Card 2: Offre d'emploi -->
-        <div class="card">
-          <div class="card-header">
-            <h2>Offres d'emploi</h2>
-          </div>
-          <div class="card-body">
+    <!-- Card 2: Utilisatrices -->
+    <div class="card">
+        <div class="card-header">
+            <h2>Utilisatrices</h2>
+        </div>
+        <div class="card-body">
             <div class="stat">
-             
+                <span>{{ getTotalUsers() }}</span> <!-- Affiche le nombre total d'utilisateurs -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3: Offres d'emploi -->
+    <div class="card">
+        <div class="card-header">
+            <h2>Offres d'emploi</h2>
+        </div>
+        <div class="card-body">
+            <div class="stat">
                 <span>{{ getTotalOffres() }}</span>
             </div>
-          </div>
         </div>
-  
-        <!-- Card 3: Recent Formations -->
-        <div class="cardform recent-formations">
-          <div class="card-headerr">
+    </div>
+
+    <!-- Card 4: Formations récentes -->
+    <div class="cardform recent-formations">
+        <div class="card-headerr">
             <h2>Formations récentes</h2>
-          </div>
-          <ul class="list">
-            <li *ngFor="let formation of recentFormations">
-              <div class="icon">
-                <i class="fas fa-laptop-code"></i> <!-- Remplacer l'icône selon le type de formation -->
-              </div>
-              <div class="details">
-                <h3>{{ formation.titre }}</h3>
-                <p>{{ formation.dateDebut | date: 'dd MMMM yyyy' }} -- {{ formation.dateFin | date: 'dd MMMM yyyy' }}</p> <!-- Formatage de la date -->
-              </div>
-              <div class="amount">
-                <p></p> <!-- Ajouter le champ 'prix' s'il existe -->
-              </div>
-            </li>
-          </ul>
         </div>
-      </div>
+        <ul class="list">
+            <li *ngFor="let formation of recentFormations">
+                <div class="icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="details">
+                    <h3>{{ formation.titre }}</h3>
+                    <p>{{ formation.dateDebut | date: 'dd MMMM yyyy' }} -- {{ formation.dateFin | date: 'dd MMMM yyyy' }}</p>
+                </div>
+                <div class="amount">
+                    <p></p> <!-- Ajouter le champ 'prix' s'il existe -->
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
   
       <!-- Charts section -->
       <div class="char">

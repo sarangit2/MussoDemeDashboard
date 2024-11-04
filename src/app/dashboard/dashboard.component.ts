@@ -45,6 +45,8 @@ toggleMenu() {
     this.loadFormationsByMonth();
   }
 
+  
+
   // Charger les formations par mois et configurer le graphique
   loadFormationsByMonth(): void {
     this.formationService.getFormationsByMonth().subscribe(data => {

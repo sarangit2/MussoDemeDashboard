@@ -1,31 +1,14 @@
-
-
-  <!-- src/app/components/article/article.component.html -->
+<!-- src/app/components/article/article.component.html -->
 <div class="container">
   <app-sidebar></app-sidebar>
 
   <div class="content">
     <app-header></app-header>
 
-    <div class="ENTETE" >
-     
-
+    <div class="ENTETE">
       <div class="profile-edit-container">
-        <div class="tabs">
-          <button class="tab active">Edit Profile</button>
-          <button class="tab">Sécurité</button>
-        </div>
-      
-        <div class="profile-section">
-          <div class="profile-image-container">
-            <img 
-              src="https://via.placeholder.com/100" 
-              alt="Profile Picture" 
-              class="profile-image"
-            >
-          </div>
-        </div>
-      
+        <div class="profile-section"></div>
+
         <form class="profile-form">
           <div class="form-row">
             <div class="form-group">
@@ -34,7 +17,7 @@
                 type="text" 
                 id="nom" 
                 [value]="userDetails?.nom" 
-                
+                readonly
               >
             </div>
             <div class="form-group">
@@ -43,11 +26,11 @@
                 type="text" 
                 id="prenom" 
                 [value]="userDetails?.prenom" 
-                
+                readonly
               >
             </div>
           </div>
-      
+
           <div class="form-row">
             <div class="form-group">
               <label for="email">Email</label>
@@ -55,7 +38,7 @@
                 type="email" 
                 id="email" 
                 [value]="userDetails?.email" 
-                
+                readonly
               >
             </div>
             <div class="form-group">
@@ -64,23 +47,14 @@
                 type="text" 
                 id="phone" 
                 [value]="userDetails?.phone" 
-                
+                readonly
               >
             </div>
           </div>
-      
-          <!-- Ajoutez d'autres champs selon votre modèle utilisateur -->
           
-          <div class="form-actions">
-            <button type="button" class="save-button" (click)="editUser()">Modifier</button>
-          </div>
+          <!-- Ajoutez d'autres champs selon votre modèle utilisateur -->
         </form>
       </div>
-      
-
-
     </div>
   </div>
 </div>
-
-  

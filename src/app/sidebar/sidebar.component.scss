@@ -41,3 +41,22 @@ $sidebar-selected-color: #FE5C73; // Sidebar selected item color
         .nav-link.active i {
             color: #FE5C73;; /* Couleur de l'icône du lien actif */
           }
+
+
+          /* styles.css ou sidebar.component.css */
+          .btn-custom {
+            background-color: #FE5C73; /* Couleur de fond */
+            color: white; /* Couleur du texte */
+            border: none; /* Supprime les bordures */
+            padding: 10px 15px; /* Ajout de l'espace autour du texte */
+            border-radius: 5px; /* Bords arrondis */
+            width: 100%; /* Largeur complète */
+            cursor: pointer; /* Curseur pointeur pour l'interaction */
+            transition: background-color 0.3s; /* Transition pour un effet de survol */
+            margin-top: 95px; /* Espace au-dessus du bouton */
+          }
+          
+          .btn-custom:hover {
+            background-color: #f04e66; /* Couleur de fond au survol */
+          }
+          

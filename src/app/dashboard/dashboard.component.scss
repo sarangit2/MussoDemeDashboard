@@ -1,10 +1,12 @@
-/* Basic styles */
+/* Basic styles for the body and container */
+$sidebar-selected-color: #FE5C73;
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0;
     background-color: #f4f4f4;
     color: #333;
-    margin: 0;
-    overflow-x: hidden; /* Prevents horizontal scrolling */
+    overflow: hidden;
 }
 
 .container {
@@ -12,7 +14,7 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar */
+/* Sidebar styles */
 .sidebar {
     background-color: #fff;
     width: 250px;
@@ -20,63 +22,87 @@ body {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Content Area */
+.logo img {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+/* Main content area styles */
 .content {
     flex: 1;
-    padding: 20px;
 }
 
-/* Dashboard grid */
+/* Dashboard grid styles */
 .dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
     gap: 20px;
-    padding: 0 10px;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: wrap; /* Permet de gérer le débordement sur les petites écrans */
 }
 
-/* Card styling */
+/* General card styles */
 .card, .cardform {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    // margin-bottom: 20px;
+    flex: 1 1 300px; /* Permet aux cartes de s'adapter à l'espace disponible */
+    transition: transform 0.3s; /* Animation de transformation */
+}
+
+.card:hover, .cardform:hover {
+    transform: translateY(-5px); /* Effet d'élévation au survol */
 }
 
 .card-header, .card-headerr {
     display: flex;
-    justify-content: center;
-    color: #FE5C73;
-    font-size: 18px;
+    justify-content: space-between;
+    align-content: center;
     margin-bottom: 15px;
+    color: $sidebar-selected-color; /* Utilisation de la couleur définie */
+    border-bottom: 2px solid $sidebar-selected-color; /* Ligne en bas du header */
+    padding-bottom: 10px; /* Espacement supplémentaire */
 }
 
-/* Chart section */
-.char {
-    display: flex;
-    gap: 20px;
-    padding: 0 10px;
-}
-
-.cardchart {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+.card-header, .card-headerr, h2, .stat span {
+    font-size: 18px;
+    margin: 0;
+    text-align: center;
     width: 100%;
-    max-width: 35vw;
-    height: 185px;
 }
 
-/* Recent Formations List */
+.stat {
+    display: flex;
+    justify-content: center; /* Centrer le contenu */
+    align-items: center;
+    font-size: 24px; /* Taille de police augmentée pour les statistiques */
+    margin-top: 10px;
+    color: #333; /* Couleur pour le texte des statistiques */
+}
+
+.highlight {
+    color: $sidebar-selected-color;
+}
+
+.welcome-title {
+    text-align: center;
+    margin: 20px 0; /* Espacement autour du titre */
+}
+
+/* Recent formations list styles */
 .recent-formations ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .recent-formations li {
     display: flex;
     align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0; /* Ligne entre les éléments */
 }
 
 .recent-formations .icon {
@@ -90,74 +116,47 @@ body {
     margin-right: 15px;
 }
 
+.recent-formations .icon i {
+    font-size: 20px;
+    color: #555;
+}
+
 .recent-formations .details h3 {
     font-size: 16px;
-    margin: 0;
+    margin: 0 0 5px 0;
 }
 
 .recent-formations .details p {
     font-size: 14px;
     color: #888;
+    margin: 0;
 }
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
     .container {
         flex-direction: column;
     }
 
     .sidebar {
         width: 100%;
+        height: auto;
         position: relative;
     }
 
-    .dashboard-grid, .char {
-        grid-template-columns: 1fr;
-    }
-
-    .cardchart {
-        width: 100%;
-        height: auto;
+    .dashboard-grid {
+        padding: 10px; /* Réduire le padding pour les petits écrans */
     }
 
     .card, .cardform {
-        width: 100%;
+        flex: 1 1 100%; /* Pleine largeur sur les petits écrans */
     }
 }
 
-@media (max-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-
-    .recent-formations .icon {
-        width: 30px;
-        height: 30px;
-    }
-
-    .recent-formations .details h3 {
-        font-size: 14px;
-    }
-
-    .recent-formations .details p {
-        font-size: 12px;
-    }
-}
-
+/* Very small screens (phones) */
 @media (max-width: 480px) {
-    .sidebar, .content {
-        padding: 10px;
-    }
-
-    .dashboard-grid {
-        gap: 10px;
-    }
-
-    h3 {
-        font-size: 1.2em;
-    }
-
-    .card-header, .card-headerr h2, .stat span {
-        font-size: 16px;
+    .recent-formations li {
+        flex-direction: column; /* Éléments en colonne sur les très petits écrans */
+        align-items: flex-start; /* Alignement à gauche */
     }
 }

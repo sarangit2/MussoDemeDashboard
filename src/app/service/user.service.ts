@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../incident.model';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class UserService {
   private apiUrl = 'http://localhost:8080/api/superadmin';
   
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // Méthode pour récupérer le JWT stocké dans localStorage
   private getJwtToken(): string | null {
@@ -59,5 +60,11 @@ export class UserService {
   // Supprimer un utilisateur
   deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/supprimer/${id}`, { headers: this.getAuthHeaders() });
+  }
+
+   // Méthode pour déconnecter l'utilisateur
+   logout(): void {
+    localStorage.removeItem('jwt');  // Supprime le token JWT
+    this.router.navigate(['/login']); // Redirige vers le composant de connexion
   }
 }
